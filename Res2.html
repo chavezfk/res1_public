@@ -1,0 +1,441 @@
+<!--To DO: Restrict room choices by occupancy -->
+<html ng-app="app">
+<head>
+  <title>Skeen Library Meeting Spaces</title>
+  <meta charset="utf-8"/>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-animate.js"></script>
+  <link type="text/css" rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-csp.css"/>
+  <style type="text/css">
+    body {
+      margin: 0.5in 1in;
+      font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif;
+    }
+
+    label {
+      float: left;
+      width: 14em;
+      margin-right: 1em;
+      text-align: right;
+    }
+
+    .button {
+      background-color: #4CAF50; /* Green */
+      border: none;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+    }
+
+    .checkbox-label label {
+      display: inline;
+      padding: 0 1ex;
+    }
+
+    fieldset div {
+      margin-bottom: 0.5ex;
+    }
+
+    .control-row {
+      clear: both;
+      margin-bottom: 1.2ex;
+    }
+
+    .unconstrained-label label {
+      width: inherit;
+    }
+
+    .warning {
+      color: #900;
+      font-weight: bold;
+      transition: all linear 0.5s;
+    }
+
+    .info {
+      color: #009;
+      font-weight: bold;
+      transition: all linear 0.5s;
+    }
+
+    fieldset {
+      margin-bottom: 1em;
+    }
+
+    .warning.ng-hide, .info.ng-hide {
+      opacity: 0;
+    }
+
+  </style>
+
+</head>
+<body>
+<h1>Skeen Library Meeting Spaces</h1>
+<p>Skeen Library has four meeting spaces available to the New Mexico Tech students, faculty, staff. These rooms are
+  available to unaffiliated members of the community for a small fee.</p>
+
+<form method="post" action="http://liz.7gf.org/reserve.php" ng-controller="Form">
+  <fieldset>
+    <legend>Event Time</legend>
+
+    <div class="control-row">
+      <label for="rezdate">Reservation Date:</label>
+      <input type="text" name="rezdate" id="rezdate" class="type-date"/>
+    </div>
+
+    <div class="control-row">
+      <label for="arr_time">Arrival Time:</label>
+      <input type="text" name="arr_time" id="arr_time" class="type-time"/>
+    </div>
+
+    <div class="control-row">
+      <label for="dep_time">Departure Time:</label>
+      <input type="text" name="dep_time" id="dep_time" class="type-time"/>
+    </div>
+
+    <div class="control-row unconstrained-label">
+      <label>Is this a recurring event?</label>
+      <label><input name="recur" type="radio" value="true"/>Yes</label>
+      <label><input name="recur" type="radio" value="false" checked="checked"/>No</label>
+    </div>
+
+    <div class="control-row">
+      <label>Repeats:</label>
+      <select name="repeats" disabled="disabled">
+        <option value="not">Does Not Repeat</option>
+        <option value="daily">Daily</option>
+        <option value="weekday">Every Week Day</option>
+        <option value="mwf">Every Monday, Wednesday and Friday</option>
+        <option value="tt">Every Tuesday and Thursday</option>
+        <option value="weekly">Weekly</option>
+        <option value="monthly">Monthly</option>
+      </select>
+
+      <p class="checkbox-label" id="days" style="display: none">
+        <label style="text-align: left;"><input type="checkbox" name="monday"/> Monday </label>
+        <label style="text-align: left;"><input type="checkbox" name="tuesday"/> Tuesday </label>
+        <label style="text-align: left;"><input type="checkbox" name="wednesday"/> Wednesday</label>
+        <label style="text-align: left;"><input type="checkbox" name="thursday"/> Thursday </label>
+        <label style="text-align: left;"><input type="checkbox" name="friday"/> Friday </label>
+        <label style="text-align: left;"><input type="checkbox" name="saturday"/> Saturday </label>
+        <label style="text-align: left;"><input type="checkbox" name="sunday"/> Sunday </label>
+      </p>
+
+    </div>
+
+    <div class="control-row">
+      <label for="until">Until:</label>
+      <input type="text" name="until" id="until" class="type-date"/>
+    </div>
+
+    <div class="control-row">
+      Note: Reservations can only be made for the current semester.
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Contact Info</legend>
+
+    <div class="control-row">
+      <label for="name"> Your Name:</label>
+      <input id="name" name="name"/>
+    </div>
+
+    <div class="control-row">
+      <label for="phone"> Phone: </label>
+      <input id="phone" name="phone" type="phone"/>
+    </div>
+
+    <div class="control-row">
+      <label for="email"> Email Address:</label>
+      <input id="email" name="email" type="email"/>
+    </div>
+
+    <div class="control-row">
+      <label for="group-name"> Group Name: </label>
+      <input id="group-name" name="group name"/>
+    </div>
+
+  </fieldset>
+  <fieldset>
+    <legend>Event Information</legend>
+
+    <div class="control-row">
+      <label for="numberofattendees">How many people will be in your group?</label>
+      <p>
+        <!--<label>Number of Attendees</label>-->
+        <select id="numberofattendees">
+          <option value="small">1-5</option>
+          <option value="medium">5-10</option>
+          <option value="large">10-20</option>
+          <option value="xlarge">20-50</option>
+
+        </select>
+      </p>
+
+      <!-- Switched from counter <label style="text-align: left;"> Number of Attendees: <input name = "number" type = "number"/> </label>-->
+    </div>
+
+    <div class="control-row">
+      <label for="room">Requested Meeting Space:</label>
+      <select id="room" name="room">
+        <option value="Room 212">Tripp Room (Room 212)</option>
+        <option value="Room 208">Computer Lab (Room 208)</option>
+        <option value="Study Room 8"> Study Room 8</option>
+        <option value="Study Room 5">Study Room 5</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="instructions">Special Instructions:</label>
+      <textarea id="instructions" name="instructions" rows="4" cols="60"></textarea>
+    </div>
+  </fieldset>
+
+  <fieldset class="unconstrained-label">
+    <legend>Group Affiliation</legend>
+    <div class="control-row">
+      <label>
+        <input name="tech" type="checkbox" value="true" ng-model="tech"/>
+        My organization is affiliated with New Mexico Tech (eg. Students, Faculty, or Staff)
+      </label>
+    </div>
+
+    <div class="control-row">
+      <label>
+        <input name="federal" type="checkbox" value="true" ng-model="federal"/>
+        My organization is Federally affiliated
+      </label>
+    </div>
+
+    <div class="control-row">
+      <label>
+        <input name="state" type="checkbox" value="true" ng-model="state"/>
+        My organization is affiliated with New Mexico State government
+      </label>
+    </div>
+
+    <div class="control-row">
+      <p id="fee-warning" class="warning" ng-show="!(tech || federal || state)">You will be charged a $10 fee for using the room.</p>
+      <p id="fee-waived" class="info" ng-show="tech || federal || state">Verification of affiliation will be required at
+        check-in.</p>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Revenue</legend>
+
+    <div class="control-row unconstrained-label">
+      <label>
+        <input name="commercial" type="checkbox" value="true" ng-model="commercial"/>
+        My organization plans to charge a fee, sell or allow ordering of goods at my event.
+      </label>
+    </div>
+
+    <div class="control-row">
+      <p id="commercial-warning" class="warning" ng-show="commercial">
+        Events hosted at the New Mexico Tech library cannot be revenue producing.
+        Unfortunately, we are unable to provide space for your event.
+      </p>
+    </div>
+  </fieldset>
+
+  <div style="text-align: left;">
+    <fieldset>
+      <legend>Equipment Requests</legend>
+
+      <p class="checkbox-label">
+        <label style="text-align: left;"> <input type="checkbox" name="needsdvd"/> DVD/VCR Player </label>
+        <label style="text-align: left;"> <input type="checkbox" name="needscomputer"/> Library Computer </label>
+        <label style="text-align: left;"> <input type="checkbox" name="needsprojector"/> LCD Projector </label>
+        <label style="text-align: left;"> <input type="checkbox" name="needsphone"/> Phone </label>
+      </p>
+
+      <p style="clear: both">
+        <b>Note: Equipment may only be available in certain rooms.</b>
+      </p>
+    </fieldset>
+  </div>
+
+  <p style="color:blue;"><a href="http://www.dineoncampus.com/nmt/show.cfm?cmd=catering" target="_blank"> Contact Chartwell's for
+    catering.</a>
+  <p style="color: blue;"><a href="http://www.nmt.edu/isd-contactus" target="_blank"> For group wireless internet access contact
+    ITC.</a>
+
+  <p style="text-align: justify;">I understand that everyone present at my event in the Skeen Library shall
+    indemnify and hold harmless the
+    Skeen Library of New Mexico Tech and its,
+    officers, employees, agents, programs and entities
+    against all damages, claims, liability due to
+    loss of the property of others or
+    any other liability arising out
+    of its use of any Skeen Library
+    rooms or any other part of the
+    Library’s facility. I, the above
+    signed responsible party, also
+    understand that I am responsible for the payment of
+    any and all damages to of loss of the Skeen
+    Library’s property; and any and all legal fees Skeen Library may incur as the resulting from any
+    legal action taken due to any incident that occurs as a result of
+    the preparations or clean up for, or
+    activities, the actual event itself. I also understand that if
+    I hold an event considered by Skeen
+    Library to be at any time to be:
+    potentially harmful to the public image of New Mexico Tech or
+    Skeen Library, disruptive to normal
+    library operations, in violation
+    of any of the current policies
+    that are documented in the “NMT Student Handbook,” or which involves in any way with open
+    flame, alcohol, tobacco products, or narcotics the my whole group
+    may be immediately be asked
+    to leave the Skeen Library facility; and that my group may be banned from any and all future
+    uses of the Skeen Library facilities. By signing this document, I acknowledge that I have read the
+    above agreement concerning acceptable use of the Skeen Library’s rooms, I have received a
+    copy of the room reservation policy, and that
+    I agree to abide by, and be legally bound by the
+    terms of this agreement.
+  </p>
+  <label style="text-align: left;"><input type="checkbox" name="agree" ng-model="agreed"/> I Agree </label>
+
+  <div class="control-row" style="padding-top: 1em">
+    <a href="mailto:llyons@admin.nmt.edu?subject=Skeen Library Reservation Request">
+      <button id="submit" ng-disabled="!canSubmit()">Submit Form</button>
+    </a>
+  </div>
+</form>
+
+<script>
+
+  var app = angular.module('app', ['ngAnimate']);
+  app.controller('Form', function($scope, $log) {
+    $scope.tech = false;
+    $scope.federal = false;
+    $scope.state = false;
+    $scope.commercial = false;
+    $scope.agreed = false;
+
+    $scope.canSubmit = function() {
+      return $scope.agreed && !$scope.commercial
+    };
+  });
+
+
+  /*
+  $(function () {
+    // activate the timepickers
+    $('input.type-time').timepicker({
+      interval: 30,
+      minTime: '8',
+      maxTime: '23:30'
+    });
+
+    // activate the datepickers
+    $('input.type-date').datepicker();
+
+    // enable/disable the repeat choice based on the recurring event input
+    $('input[name=recur]').change(function () {
+      $('select[name=repeats]').prop('disabled', $('input[name=recur]:checked').val() === 'false');
+    });
+
+    // enable/disable days of the week based on the repeat choice input
+    $('select[name=repeats]').change(function () {
+      if ($('select[name=repeats]').val() === 'weekly') {
+        $('#days').show();
+      }
+      else {
+        $('#days').hide();
+      }
+    });
+    //This block restricts access to rooms based on the size of the group.
+    $('#numberofattendees').change(function () {
+      var numberOfAttendees = $('#numberofattendees').val();
+
+      if (numberOfAttendees === 'large' || numberOfAttendees === 'xlarge') {
+        $("option[value='Study Room 8']").prop('disabled', true);
+        $("option[value='Study Room 5']").prop('disabled', true);
+      }
+      else {
+        $("option[value='Study Room 8']").prop('disabled', false);
+        $("option[value='Study Room 5']").prop('disabled', false);
+      }
+      if (numberOfAttendees === 'xlarge') {
+        $("option[value='Room 208']").prop('disabled', true);
+      }
+      else {
+        $("option[value='Room 208']").prop('disabled', false);
+      }
+    });
+
+
+    $('select[name=room]').change(function () {
+      var roomSelected = $('select[name=room]').val();
+
+      if (roomSelected === "Room 212") {
+        $("input[name=needsdvd]").prop('disabled', false);
+        $("input[name=needscomputer]").prop('disabled', false);
+        $("input[name=needsprojector]").prop('disabled', false);
+        $("input[name=needsphone]").prop('disabled', false);
+      }
+
+      if (roomSelected === "Room 208") {
+        $("input[name=needsdvd]").prop('disabled', false);
+        $("input[name=needscomputer]").prop('disabled', false);
+        $("input[name=needsprojector]").prop('disabled', false);
+        $("input[name=needsphone]").prop('disabled', true);
+      }
+
+      if (roomSelected === "Study Room 8") {
+        $("input[name=needsdvd]").prop('disabled', false);
+        $("input[name=needscomputer]").prop('disabled', true);
+        $("input[name=needsprojector]").prop('disabled', true);
+        $("input[name=needsphone]").prop('disabled', true);
+      }
+
+      if (roomSelected === "Study Room 5") {
+        $("input[name=needsdvd]").prop('disabled', false);
+        $("input[name=needscomputer]").prop('disabled', true);
+        $("input[name=needsprojector]").prop('disabled', true);
+        $("input[name=needsphone]").prop('disabled', true);
+      }
+
+    });
+
+    $('input[name=tech], input[name=federal], input[name=state]').change(function () {
+      var isTech = $('input[name=tech]:checked').val() === 'true';
+      var isFed = $('input[name=federal]:checked').val() === 'true';
+      var isState = $('input[name=state]:checked').val() === 'true';
+
+      $('#fee-warning').toggle(!isTech && !isFed && !isState);
+      $('#fee-waived').toggle(isTech || isFed || isState);
+    });
+
+    $('input[name=commercial]').change(function () {
+      $('#commercial-warning').toggle($('input[name=commercial]:checked').val() === 'true');
+    });
+
+    $('input').change(function() {
+      var canSubmit = true;
+
+      // do the other form validation stuff here
+      // DON'T assign canSubmit = true, just assign false!
+      if ($('input[name=commercial]:checked').val() === 'true')
+        canSubmit = false;
+
+      if ($('input[name=agree]:checked').val() !== 'true')
+        canSubmit = false;
+
+      if (canSubmit)
+        console.log('you should be able to submit');
+      else
+        console.log('you should not be able to submit');
+
+      $('#submit').prop('disabled', !canSubmit);
+    });
+
+  });
+*/
+</script>
+</body>
+</html>
