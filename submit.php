@@ -22,7 +22,21 @@ else if (!isset($_POST['agree']) && $_POST['agree'] == 'on') {
 
 // If we make it here, validation succeeded.
 // Step 2. Record the room reservation
+query("INSERT INTO contacts (name, phone, email, group_name) VALUES (?, ?, ?, ?)",
+    array($_POST['name'], $_POST['phone'], $_POST['email'], $_POST['group name']));
+$contact_id = getOne("SELECT LAST_INSERT_ID()");
 
+query("INSERT INTO reservations 
+(contact_id, start, stop, repeat_style, repeat_day, repeat_until, number_of_attendees,
+ room_id, instructions, is_nmt, is_federal, is_state, 
+ needs_dvd, needs_computer, needs_projector, needs_phone, signed) 
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+array($contact_id,
+    // this is a mess
+    $_POST['rezdate'] ." ". $_POST['arr_time'],
+    $_POST['rezdate'] ." ". $_POST['dep_time'],
+    $_POST['repeats'],
+    $_POST['days'])
 
 // Step 3. Send the confirmation email and copy to desk
 mail('fusion@storytotell.org', 'Test Message', 'This is a test message');

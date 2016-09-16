@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * PDO to DB Facade
  *
@@ -150,12 +150,12 @@ function check($res, $message=NULL)
 	// database's error message instead.
 	else if ($message): ?>
 		<p><?= $message ?></p>
-	<? else: ?>
+	<?php else: ?>
 		<p><b>Database error:</b> <?= $res->getMessage() ?></p>
 		<p>Details:
 			<pre><code><?= $res->getUserInfo(); ?></code></pre>
 		</p>
-	<? endif;
+	<?php endif;
 	
 	// since we didn't return earlier when we realized it wasn't an error, we die now.
 	die;
