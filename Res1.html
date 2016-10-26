@@ -14,14 +14,17 @@
   <style type="text/css">
     body {
       margin: 0.5in 1in;
+      max-width: 50em;
       font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif;
+      color: #333;
     }
 
-    label {
+    label:first-child {
       float: left;
       width: 14em;
       margin-right: 1em;
       text-align: right;
+      font-size: 14px;
     }
 
     .button {
@@ -71,11 +74,12 @@
 
 </head>
 <body>
-<h1>Skeen Library Meeting Spaces</h1>
+<img style="float:right" src="Logo.png"/>
+<h1 style="clear: both">Skeen Library Meeting Spaces</h1>
 <p>Skeen Library has four meeting spaces available to the New Mexico Tech students, faculty, staff. These rooms are
   available to unaffiliated members of the community for a small fee.</p>
 
-<form method="post" action="submit.php">
+<form method="post" action="register.php">
   <fieldset>
     <legend>Event Time</legend>
 
@@ -94,10 +98,10 @@
       <input type="text" name="dep_time" id="dep_time" class="type-time"/>
     </div>
 
-    <div class="control-row unconstrained-label">
+    <div class="control-row">
       <label>Is this a recurring event?</label>
-      <label><input name="recur" type="radio" value="true"/>Yes</label>
-      <label><input name="recur" type="radio" value="false" checked="checked"/>No</label>
+      <label style="padding-right: 1em"><input name="recur" type="radio" value="true"/>Yes</label>
+      <label style="padding-right: 1em"><input name="recur" type="radio" value="false" checked="checked"/>No</label>
     </div>
 
     <div class="control-row">
@@ -113,13 +117,13 @@
       </select>
 
       <p class="checkbox-label" id="days" style="display: none">
-        <label style="text-align: left;"><input type="checkbox" name="monday"/> Monday </label>
-        <label style="text-align: left;"><input type="checkbox" name="tuesday"/> Tuesday </label>
-        <label style="text-align: left;"><input type="checkbox" name="wednesday"/> Wednesday</label>
-        <label style="text-align: left;"><input type="checkbox" name="thursday"/> Thursday </label>
-        <label style="text-align: left;"><input type="checkbox" name="friday"/> Friday </label>
-        <label style="text-align: left;"><input type="checkbox" name="saturday"/> Saturday </label>
-        <label style="text-align: left;"><input type="checkbox" name="sunday"/> Sunday </label>
+        <label style="text-align: left;"><input type="checkbox" name="days[monday]"/> Monday </label>
+        <label style="text-align: left;"><input type="checkbox" name="days[tuesday]"/> Tuesday </label>
+        <label style="text-align: left;"><input type="checkbox" name="days[wednesday]"/> Wednesday</label>
+        <label style="text-align: left;"><input type="checkbox" name="days[thursday]"/> Thursday </label>
+        <label style="text-align: left;"><input type="checkbox" name="days[friday]"/> Friday </label>
+        <label style="text-align: left;"><input type="checkbox" name="days[saturday]"/> Saturday </label>
+        <label style="text-align: left;"><input type="checkbox" name="days[sunday]"/> Sunday </label>
       </p>
 
     </div>
@@ -165,7 +169,7 @@
       <label for="numberofattendees">How many people will be in your group?</label>
       <p>
         <!--<label>Number of Attendees</label>-->
-        <select id="numberofattendees">
+        <select id="numberofattendees" name="numberofattendees">
           <option value="small">1-5</option>
           <option value="medium">5-10</option>
           <option value="large">10-20</option>
