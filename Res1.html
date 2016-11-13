@@ -300,10 +300,10 @@
     I agree to abide by, and be legally bound by the
     terms of this agreement.
   </p>
-  <label style="text-align: left;"><input type="checkbox" name="agree"/> I Agree </label>
+  <label style="text-align: left;"><input type="checkbox" name="agree" value="true"/> I Agree </label>
 
   <div class="control-row" style="padding-top: 1em">
-    <input type="submit" id="submit" value="Submit Form">
+    <input type="submit" id="submit" value="Submit Form" disabled="disabled">
   </div>
 </form>
 
@@ -317,7 +317,7 @@
     });
 
     // activate the datepickers
-    $('input.type-date').datepicker();
+    $('input.type-date').datepicker({minDate: 0, maxDate: '4M'});
 
     // enable/disable the repeat choice based on the recurring event input
     $('input[name=recur]').change(function () {

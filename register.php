@@ -1,67 +1,96 @@
 <?php
 
-$needlabels = array(
-    'needsphone' => 'Phone',
-    'needscomputer' => 'Computer',
-    'needsprojector' => 'Projector',
-    'needsdvd' => 'DVD player');
+function read_template($filename) {
+    ob_start();
+    include $filename;
+    return ob_get_clean();
+}
 
-$repeatlabels = array(
-    "not"     => "Does Not Repeat",
-    "daily"   => "Daily",
-    "weekday" => "Every Week Day",
-    "mwf"     => "Every Monday, Wednesday and Friday",
-    "tt"      => "Every Tuesday and Thursday",
-    "weekly"  => "Weekly",
-    "monthly" => "Monthly");
+/**
+ * Sends the actual email to the patron, confirming their submission.
+ */
+function send_email_to_patron() {
+    $headers = "";
+    $headers .= "MIME-Version: 1.0\r\n";
+    $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
 
+    $body = read_template("patron_email_body.php");
 
-ob_start();
-?>
+    mail('fusion@storytotell.org',
+        'Test Message',
+        $body,
+        $headers);
+}
 
-Reservation Date: <?php echo $_POST['rezdate']. "\n" ?>
-    from <?php echo $_POST['arr_time'] ?> to <?php echo $_POST['dep_time']. "\n"  ?>
-<?php if ($_POST['recur'] != "false"): ?>
-    Recurs: <?php echo $repeatlabels[$_POST['repeats']] . "\n" ?>
-    Days:   <?php echo join(", ", array_map('ucfirst', array_keys($_POST['days']))) . "\n"; ?>
-    Until:  <?php echo $_POST['until'] . "\n" ?>
-<?php endif; ?>
+/**
+ * Sends an email about the reservation request to the circulation desk.
+ */
+function send_email_to_circulation() {
+    $headers = "";
+    $headers .= "MIME-Version: 1.0\r\n";
+    $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
 
-Contact Info:
+    $body = read_template("circulation_email_body.php");
 
-    Group:       <?php echo $_POST['group_name']. "\n"  ?>
-    Name:        <?php echo $_POST['name'] ?> &lt;<?= $_POST['email'] ?>&gt;
-    Phone:       <?php echo $_POST['phone']. "\n"  ?>
-    Affiliation: <?php
-if ($_POST['tech'])
-    echo "NMT\n";
-elseif ($_POST['federal'])
-    echo "Federal Government\n";
-elseif ($_POST['state'])
-    echo "NM State Government\n";
-?>
+    mail('fusion@storytotell.org',
+        'Test Message',
+        $body,
+        $headers);
+}
 
-Venue:
+/**
+ * Creates an entry on the Google calendar for the patron's event.
+ */
+function create_google_calendar_entry() {
+    // FIXME: doesn't do anything yet
+}
 
-    Room: <?php echo $_POST['room']. "\n"  ?>
-    Needs:
-<?php
+/**
+ * Validates the form submission, returning 'true' if
+ * the submission is valid and the request can be saved.
+ *
+ * @return bool whether or not the patron's submission is acceptable
+ */
+function validate_submission() {
+    // FIXME: Don't trust the user's Javascript so much
+    // We probably shouldn't trust that the Javascript
+    // prevented the user from doing anything they
+    // should not have been able to do here, but right now
+    // that's what we do.
+    return true;
+}
 
-foreach (array('needsdvd', 'needscomputer', 'needsprojector', 'needsphone') as $need)
-  if ($_POST[$need])
-    echo "      - ". $needlabels[$need]. "\n";
-?>
-    Instructions:
-        <?php echo str_replace("\n", "\n        ", $_POST['instructions']). "\n"  ?>
+/**
+ * Explains to the patron why their submission is not valid.
+ */
+function complain_loudly_to_the_patron() {
 
-<?php
+}
 
-var_dump($_POST);
-foreach ($_POST as $key => $value)
-    echo "$key: $value\n";
+/*****************************************************************************/
+/*                                                                           */
+/*         T H E    A C T U A L   S U B M I S S I O N   H A N D L E R        */
+/*                                                                           */
+/*****************************************************************************/
+function handle_submission() {
+    // if the submission is valid, keep it
+    if (validate_submission()) {
+        // first make the google calendar entry
+        create_google_calendar_entry();
 
-$body = ob_get_clean();
-// mail('fusion@storytotell.org', 'Room Reservation', $body);
-echo "<pre>". $body;
+        // then email circulation
+        send_email_to_circulation();
 
-?>
+        // then email the patron
+        send_email_to_patron();
+    }
+
+    // if the submission is not valid
+    else {
+        // tell the patron why
+        complain_loudly_to_the_patron();
+    }
+}
+
+// handle the user's submission
+handle_submission();
