@@ -7,7 +7,7 @@ $(function () {
     });
 
     // activate the datepickers
-    $('input.type-date').datepicker({minDate: 0, maxDate: '4M'});
+    $('input.type-date').datepicker({minDate: 1, maxDate: '4M'});
 
     // enable/disable the repeat choice based on the recurring event input
     $('input[name=recur]').change(function () {
