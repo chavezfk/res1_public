@@ -3,6 +3,7 @@
 <head>
   <title>Skeen Library Meeting Spaces</title>
   <meta charset="utf-8"/>
+  <!-- these files are not needed because they cause a lot of loading lag for this form.
   <script
           src="https://code.jquery.com/jquery-3.0.0.min.js"
           integrity="sha256-JmvOoLtYsmqlsWxa7mDSLMwa6dZ9rrIdtrrVYRnDRH0="
@@ -11,6 +12,16 @@
   <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.3/jquery.timepicker.min.js"></script>
   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/ui-lightness/jquery-ui.css" type="text/css"/>
+  -->
+  <script
+          src="https://code.jquery.com/jquery-3.0.0.min.js"
+          integrity="sha256-JmvOoLtYsmqlsWxa7mDSLMwa6dZ9rrIdtrrVYRnDRH0="
+          crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="./styles/jquery.timepicker.min.css" type="text/css">
+  <script src="./scripts/jquery.timepicker.min.js"></script>
+  <script src="./scripts/jquery-ui.min.js"></script>
+  <link rel="stylesheet" href="./styles/jquery-ui.css" type="text/css"/>
+
   <style type="text/css">
     body {
       margin: 0.5in 1in;
@@ -39,6 +50,11 @@
     }
 
     .checkbox-label label {
+      float: left;
+      width: 8em;
+      margin-right: 1em;
+      text-align: left;
+      font-size: 14px;
       display: inline;
       padding: 0 1ex;
     }
@@ -85,7 +101,7 @@
 
     <div class="control-row">
       <label for="rezdate">Reservation Date:</label>
-      <input type="text" name="rezdate" id="rezdate" class="type-date"/>
+      <input type="text" name="rezdate" id="rezdate" class="type-date" />
     </div>
 
     <div class="control-row">
@@ -263,9 +279,9 @@
   </div>
 
   <p style="color:blue;"><a href="http://www.dineoncampus.com/nmt/show.cfm?cmd=catering" target="_blank"> Contact Chartwell's for
-    catering.</a>
+    catering.</a></p>
   <p style="color: blue;"><a href="http://www.nmt.edu/isd-contactus" target="_blank"> For group wireless internet access contact
-    ITC.</a>
+    ITC.</a></p>
 
   <p style="text-align: justify;">I understand that everyone present at my event in the Skeen Library shall
     indemnify and hold harmless the
@@ -410,7 +426,7 @@
 
       if ($('input[name=agree]:checked').val() !== 'true')
         canSubmit = false;
-
+        
       if (canSubmit)
         console.log('you should be able to submit');
       else
