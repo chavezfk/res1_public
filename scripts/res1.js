@@ -90,7 +90,7 @@ $(function () {
       $('#commercial-warning').toggle($('input[name=commercial]:checked').val() === 'true');
     });
 
-    $('input').change(function() {
+    $('body').change(function() {
       var canSubmit = true;
 
       // do the other form validation stuff here
