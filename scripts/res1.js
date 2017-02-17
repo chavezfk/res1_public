@@ -125,6 +125,7 @@ $(function () {
       }
     });
     
+    $('input').change(function() {
       var canSubmit = true;
 
       // do the other form validation stuff here
