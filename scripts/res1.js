@@ -141,23 +141,24 @@ $(function () {
 
       if ($('input[name=agree]:checked').val() !== 'true')
         canSubmit = false;
-        
-      if($('input[name=rezdate]').val() === '')
-        canSubmit = false;
-        
-      if($('input[name=arr_time]').val() === '')
-        canSubmit = false;
       
-      if($('input[name=dep_time]').val() === '')
-        canSubmit = false;
-        
-      if($('input[name=email]').val() === '')
       //required inputs with blank defaults and only need to check if it is blank
+      var reqIn = ['rezdate', 'arr_time', 'dep_time']; 
+      for(var x in reqIn){
+        if($('input[name='+ reqIn[x] + ']').val() === ''){
+        $('label[for=' + reqIn[x] + ']').attr('class', 'required');
         canSubmit = false;
-        
-     
-      if($('select[name=room]').val() === 'Default')
+      }
+      else
+        $('label[for=rezdate]').attr('class', 'unrequired');
+      }
+
+      if($('select[name=room]').val() === 'Default'){
+        $('label[for=room]').attr('class', 'required');
         canSubmit = false;
+      }
+      else
+        $('label[for=room]').attr('class', 'unrequired');
         
       if (canSubmit)
         console.log('you should be able to submit');
