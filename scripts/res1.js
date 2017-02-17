@@ -15,6 +15,15 @@ function checkIsTech(email) {
     return false;
 }
 
+function affiliationChange () {
+      var isTech = $('input[name=tech]:checked').val() === 'true';
+      var isFed = $('input[name=federal]:checked').val() === 'true';
+      var isState = $('input[name=state]:checked').val() === 'true';
+
+      $('#fee-warning').toggle(!isTech && !isFed && !isState);
+      $('#fee-waived').toggle(isTech || isFed || isState);
+    }
+
 $(function () {
     // activate the timepickers
     $('input.type-time').timepicker({
