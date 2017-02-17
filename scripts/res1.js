@@ -23,7 +23,18 @@ function affiliationChange () {
       $('#fee-warning').toggle(!isTech && !isFed && !isState);
       $('#fee-waived').toggle(isTech || isFed || isState);
     }
-
+    
+function timeChange(){
+    var req = ['arr_time', 'dep_time']; 
+    for(var x in req){
+      if($('input[name='+ req[x] + ']').val() === ''){
+        $('label[for=' + req[x] + ']').attr('class', 'required');
+        canSubmit = false;
+      }
+      else
+        $('label[for='+ req[x] +']').attr('class', 'unrequired');
+    }
+}
 $(function () {
     // activate the timepickers
     $('input.type-time').timepicker({
@@ -130,6 +141,9 @@ $(function () {
       }
     });
     
+    $('input[name=arr_time]').on('change', function() {
+      timeChange();
+    });
     //other simple change events can be combined in one call
     $('input').change(function() {
       var canSubmit = true;
@@ -146,11 +160,11 @@ $(function () {
       var reqIn = ['rezdate', 'arr_time', 'dep_time']; 
       for(var x in reqIn){
         if($('input[name='+ reqIn[x] + ']').val() === ''){
-        $('label[for=' + reqIn[x] + ']').attr('class', 'required');
-        canSubmit = false;
-      }
-      else
-        $('label[for=rezdate]').attr('class', 'unrequired');
+          $('label[for=' + reqIn[x] + ']').attr('class', 'required');
+          canSubmit = false;
+        }
+        else
+          $('label[for=' + reqIn[x] + ']').attr('class', 'unrequired');
       }
 
       if($('select[name=room]').val() === 'Default'){
