@@ -1,3 +1,20 @@
+function validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+}
+
+function checkIsTech(email) {
+    //return email.includes('nmt.edu');
+    var host = email.split('@');
+    var nmt = host[1].split('.');
+    var i = nmt.length - 1;
+    if( nmt[i] === 'edu')
+      if(nmt[i-1] === 'nmt')
+        return true;
+
+    return false;
+}
+
 $(function () {
     // activate the timepickers
     $('input.type-time').timepicker({
@@ -91,6 +108,23 @@ $(function () {
     });
 
     $('body').change(function() {
+    $('input[name=email]').change(function () {
+      if($('input[name=email]').val() === ''){
+        $('label[for=email]').attr('class', 'required');
+        canSubmit = false;
+      }
+      else{
+        $('label[for=email]').attr('class', 'unrequired');
+        var valid = validateEmail($('input[name=email]').val());
+        if(valid){
+          var isTech = checkIsTech($('input[name=email]').val());
+          $('input[name=tech]').prop('checked',isTech);
+        affiliationChange();
+        }
+        $('#valid-email').toggle(!valid);
+      }
+    });
+    
       var canSubmit = true;
 
       // do the other form validation stuff here
