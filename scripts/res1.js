@@ -60,7 +60,7 @@ $(function () {
       }
     });
 
-
+    //room select on change
     $('select[name=room]').change(function () {
       var roomSelected = $('select[name=room]').val();
 
@@ -93,21 +93,17 @@ $(function () {
       }
 
     });
-
+    //affiliation checkboxes on change event
     $('input[name=tech], input[name=federal], input[name=state]').change(function () {
-      var isTech = $('input[name=tech]:checked').val() === 'true';
-      var isFed = $('input[name=federal]:checked').val() === 'true';
-      var isState = $('input[name=state]:checked').val() === 'true';
-
-      $('#fee-warning').toggle(!isTech && !isFed && !isState);
-      $('#fee-waived').toggle(isTech || isFed || isState);
+      affiliationChange();
     });
-
+    
+    //commercial use on change event
     $('input[name=commercial]').change(function () {
       $('#commercial-warning').toggle($('input[name=commercial]:checked').val() === 'true');
     });
-
-    $('body').change(function() {
+    
+    //email on change event
     $('input[name=email]').change(function () {
       if($('input[name=email]').val() === ''){
         $('label[for=email]').attr('class', 'required');
@@ -125,6 +121,7 @@ $(function () {
       }
     });
     
+    //other simple change events can be combined in one call
     $('input').change(function() {
       var canSubmit = true;
 
@@ -146,6 +143,7 @@ $(function () {
         canSubmit = false;
         
       if($('input[name=email]').val() === '')
+      //required inputs with blank defaults and only need to check if it is blank
         canSubmit = false;
         
      
