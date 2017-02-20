@@ -82,8 +82,22 @@ $(function () {
 
     //room select on change
     $('select[name=room]').change(function () {
-      var roomSelected = $('select[name=room]').val();
 
+      if($('select[name=room]').val() === 'Default'){
+        $('label[for=room]').attr('class', 'required');
+        canSubmit = false;
+      }
+      else
+        $('label[for=room]').attr('class', 'unrequired');
+      
+      var roomSelected = $('select[name=room]').val();
+      if (roomSelected === "Default") {
+        $("input[name=needsdvd]").prop('disabled', true);
+        $("input[name=needscomputer]").prop('disabled', true);
+        $("input[name=needsprojector]").prop('disabled', true);
+        $("input[name=needsphone]").prop('disabled', true);
+      }
+      
       if (roomSelected === "Room 212") {
         $("input[name=needsdvd]").prop('disabled', false);
         $("input[name=needscomputer]").prop('disabled', false);
@@ -166,13 +180,6 @@ $(function () {
         else
           $('label[for=' + reqIn[x] + ']').attr('class', 'unrequired');
       }
-
-      if($('select[name=room]').val() === 'Default'){
-        $('label[for=room]').attr('class', 'required');
-        canSubmit = false;
-      }
-      else
-        $('label[for=room]').attr('class', 'unrequired');
         
       if (canSubmit)
         console.log('you should be able to submit');
