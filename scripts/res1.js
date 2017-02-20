@@ -25,7 +25,10 @@ function affiliationChange () {
     }
     
 function timeChange(){
-    var req = ['arr_time', 'dep_time']; 
+    var req = ['arr_time', 'dep_time'];
+    if(!checkTimes())
+      return;
+
     for(var x in req){
       if($('input[name='+ req[x] + ']').val() === ''){
         $('label[for=' + req[x] + ']').attr('class', 'required');
@@ -35,14 +38,45 @@ function timeChange(){
         $('label[for='+ req[x] +']').attr('class', 'unrequired');
     }
 }
-$(function () {
-    // activate the timepickers
-    $('input.type-time').timepicker({
-      interval: 30,
-      minTime: '8',
-      maxTime: '23:30'
-    });
 
+//returns false if there is an error in the times picked
+function checkTimes(){
+    if($('input[name=arr_time]').val() === '' || $('input[name=dep_time]').val() === '')
+      return;
+    if($('input[name=arr_time]').val() === $('input[name=dep_time]').val()){
+      timeError("You cannot arrive and depart at the same time! Please enter different times.");
+      return false;
+    }
+    var a = $('input[name=arr_time]').val().split(':');
+      a = a.concat(a[1].split(' '));
+      a.splice(1, 1);
+    var b = $('input[name=dep_time]').val().split(':');
+      b = b.concat(b[1].split(' '));
+      b.splice(1, 1);
+      
+    if((a[0] > b[0] || ( a[1] > b[1] && a[0] === b[0] ))&& a[2] === b[2] && b[2] !== 'PM'){
+      timeError("You cannot arrive after you depart! Please enter different times.");
+      return false;
+    }
+}
+
+function timeError(msg){
+      alert(msg);
+      $('input[name=arr_time]').timepicker('hide');
+      $('input[name=dep_time]').timepicker('hide');
+      $('input[name=arr_time]').val('');
+      $('input[name=dep_time]').val('');   
+      return;
+}
+
+$(function () {
+      // activate the timepickers
+      $('input.type-time').timepicker({
+        timeFormat: 'h:i A',
+        interval: 30,
+        minTime: '8',
+        maxTime: '23:30'
+      });
     // activate the datepickers
     $('input.type-date').datepicker({minDate: 1, maxDate: '4M'});
 
@@ -155,9 +189,13 @@ $(function () {
       }
     });
     
-    $('input[name=arr_time]').on('change', function() {
+    $('input[name=arr_time]').on('selectTime', function() {
       timeChange();
     });
+    $('input[name=dep_time]').on('selectTime', function() {
+      timeChange();
+    });
+    
     //other simple change events can be combined in one call
     $('input').change(function() {
       var canSubmit = true;
