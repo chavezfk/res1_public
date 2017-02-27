@@ -65,8 +65,9 @@ $repeatlabels = array(
             <?php
 
             foreach (array('needsdvd', 'needscomputer', 'needsprojector', 'needsphone') as $need)
-                if ($_POST[$need])
-                    echo "<li>". $needlabels[$need] ."</li>";
+                if (array_key_exists($need, $_POST))
+                    if ($_POST[$need])
+                        echo "<li>". $needlabels[$need] ."</li>";
             ?>
         </ul>
     </dd>
