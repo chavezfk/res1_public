@@ -94,3 +94,14 @@ function handle_submission() {
 
 // handle the user's submission
 handle_submission();
+
+echo "Thank you for your submission!";
+echo "<table>";
+foreach ($_POST as $value){
+    echo "<tr><td>";
+    echo $value;
+    echo "</td><td>";
+    echo $value;
+    echo "</td></tr>";
+}
+echo "</table>";
