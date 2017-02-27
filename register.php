@@ -16,8 +16,8 @@ function send_email_to_patron() {
 
     $body = read_template("patron_email_body.php");
 
-    mail('fusion@storytotell.org',
-        'Test Message',
+    mail($_POST['email'],
+        'Skeen Library Room Reservation',
         $body,
         $headers);
 }
