@@ -84,3 +84,5 @@ crashlytics-build.properties
 fabric.properties
 .idea/
 /nbproject/private/
+/vendor/
+client_secret.json
