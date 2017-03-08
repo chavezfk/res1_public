@@ -43,21 +43,25 @@ function send_email_to_circulation() {
  * Creates an entry on the Google calendar for the patron's event.
  */
 function create_google_calendar_entry() {
+    // Get the API client and construct the service object.
+    $client = getClient();
+    $service = new Google_Service_Calendar($client);
+
     $event = new Google_Service_Calendar_Event();
-	$startTime = new Google_Service_Calendar_EventDateTime();
-	$startTime->setDateTime(date('c', strtotime("tomorrow 3pm")));
-	$startTime->setTimeZone("America/Denver");
-	$endTime = new Google_Service_Calendar_EventDateTime();
-	$endTime->setDateTime(date('c', strtotime("tomorrow 3:30pm")));
-	$endTime->setTimeZone("America/Denver");
-	$event->setStart($startTime);
-	$event->setEnd($endTime);
-	$event->setSummary("Meet with the Pope");
-	$event->setDescription("Roses are red\nViolets are blue\nI can't rhyme\nAnd neither can you");
-	$event->setLocation("Tripp room");
-	$event->setAttendees(25);
-	$event->setKind("meeting");
-	$service->events->insert('pending', $event);
+    $startTime = new Google_Service_Calendar_EventDateTime();
+    $startTime->setDateTime(date('c', strtotime("tomorrow 3pm")));
+    $startTime->setTimeZone("America/Denver");
+    $endTime = new Google_Service_Calendar_EventDateTime();
+    $endTime->setDateTime(date('c', strtotime("tomorrow 3:30pm")));
+    $endTime->setTimeZone("America/Denver");
+    $event->setStart($startTime);
+    $event->setEnd($endTime);
+    $event->setSummary("Meet with the Pope");
+    $event->setDescription("Roses are red\nViolets are blue\nI can't rhyme\nAnd neither can you");
+    $event->setLocation("Tripp room");
+    $event->setAttendees(25);
+    $event->setKind("meeting");
+    $service->events->insert('pending', $event);
 }
 
 /**
