@@ -85,5 +85,5 @@ fabric.properties
 .idea/
 /nbproject/private/
 /vendor/
-client_secret.json
+client_secret*
 composer*
