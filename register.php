@@ -46,6 +46,9 @@ function create_google_calendar_entry() {
     // Get the API client and construct the service object.
     $client = getClient();
     $service = new Google_Service_Calendar($client);
+    //change this to the correct address of the calendar you wish you change
+    //it is found in calendar settings under "calendar Address" 
+    $ID = 'u3i2i3mp5o9ljihednbh29cas4@group.calendar.google.com';
 
     $event = new Google_Service_Calendar_Event();
     $startTime = new Google_Service_Calendar_EventDateTime();
@@ -61,7 +64,7 @@ function create_google_calendar_entry() {
     $event->setLocation("Tripp room");
     $event->setAttendees(25);
     $event->setKind("meeting");
-    $service->events->insert('pending', $event);
+    $service->events->insert($ID, $event);
 }
 
 /**
