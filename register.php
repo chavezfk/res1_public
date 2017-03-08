@@ -59,9 +59,24 @@ function create_google_calendar_entry() {
     $endTime->setTimeZone("America/Denver");
     $event->setStart($startTime);
     $event->setEnd($endTime);
-    $event->setSummary("Meet with the Pope");
-    $event->setDescription("Roses are red\nViolets are blue\nI can't rhyme\nAnd neither can you");
-    $event->setLocation("Tripp room");
+    $event->setSummary("Room Reservation for Meeting");
+    $event->setDescription("
+        Attendees: ". $_POST['numberofattendees'] ."\n
+        NMT Affiliation: ". $_POST['tech'] ."\n
+        Federal Affiliation: ". $_POST['federal'] ."\n
+        State Affiliation: ". $_POST['state'] ."\n\n
+        
+        Equipment Requirments:\n
+        DVD: ". $_POST['needsdvd'] ."\n
+        Computer: ". $_POST['needscomputer'] ."\n
+        Projector: ". $_POST['needsprojector'] ."\n
+        Phone: ". $_POST['needsphone'] ."\n\n
+        
+        Special Instructions: \n". $_POST['instructions'] ."\n
+        
+        
+    ");
+    $event->setLocation($_POST['room']);
     $event->setAttendees(25);
     $event->setKind("meeting");
     $service->events->insert($ID, $event);
