@@ -87,3 +87,4 @@ fabric.properties
 /vendor/
 client_secret*
 composer*
+/.credentials/
