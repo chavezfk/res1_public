@@ -50,6 +50,6 @@ array($contact_id,
     $_POST['agree']));
 
 // Step 3. Send the confirmation email and copy to desk
-mail('fusion@storytotell.org', 'Test Message', 'This is a test message');
+mail('chavezfk@gmail.com', 'Test Message', 'This is a test message');
 
 ?>
