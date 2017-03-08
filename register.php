@@ -32,7 +32,7 @@ function send_email_to_circulation() {
 
     $body = read_template("circulation_email_body.php");
 
-    mail('fusion@storytotell.org',
+    mail('chavezfk@gmail.com',
         'Test Message',
         $body,
         $headers);
