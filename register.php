@@ -52,10 +52,10 @@ function create_google_calendar_entry() {
 
     $event = new Google_Service_Calendar_Event();
     $startTime = new Google_Service_Calendar_EventDateTime();
-    $startTime->setDateTime(date('c', strtotime("$_POST['rezdate'] $_POST['arr_time']")));
+    $startTime->setDateTime(date('c', strtotime($_POST['rezdate'] ." ". $_POST['arr_time'])));
     $startTime->setTimeZone("America/Denver");
     $endTime = new Google_Service_Calendar_EventDateTime();
-    $endTime->setDateTime(date('c', strtotime("$_POST['rezdate'] $_POST['dep_time']")));
+    $endTime->setDateTime(date('c', strtotime($_POST['rezdate'] ." ". $_POST['dep_time'])));
     $endTime->setTimeZone("America/Denver");
     $event->setStart($startTime);
     $event->setEnd($endTime);
