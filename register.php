@@ -7,6 +7,13 @@ function read_template($filename) {
     return ob_get_clean();
 }
 
+//called if reccurence is chosen
+/*function makeRecurrenceString() {
+    $days = array_map('ucfirst', array_keys($_POST['days']));
+    $word = "";
+    foreach $days as $c
+        $word = $word . c;
+}*/
 /**
  * Sends the actual email to the patron, confirming their submission.
  */
@@ -59,6 +66,9 @@ function create_google_calendar_entry() {
     $endTime->setTimeZone("America/Denver");
     $event->setStart($startTime);
     $event->setEnd($endTime);
+    /*if ($_POST['recur'] != "false"){
+        $event->setRecurrence(makeRecurrenceString());
+    }*/
     $event->setSummary("Skeen Library Meeting Space Reservation");
     $event->setDescription("
         Attendees: ". $_POST['numberofattendees'] ."\n
