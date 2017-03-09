@@ -82,6 +82,9 @@ function create_google_calendar_entry() {
         Projector: ". $_POST['needsprojector'] ."\n
         Phone: ". $_POST['needsphone'] ."\n\n
         
+        Recurs: ". $repeatlabels[$_POST['repeats']] . "\n
+        Days:   ". join(", ", array_map('ucfirst', array_keys($_POST['days']))) . "\n
+        Until:  ". $_POST['until'] . "\n
         Special Instructions: \n". $_POST['instructions'] ."\n
         
         
