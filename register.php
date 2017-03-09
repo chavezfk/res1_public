@@ -34,7 +34,7 @@ function send_email_to_circulation() {
     $body = read_template("circulation_email_body.php");
 
     mail('nmtlib@gmail.com',
-        'Test Message',
+        'Room Reservation Request',
         $body,
         $headers);
 }
