@@ -78,3 +78,4 @@ $repeatlabels = array(
 
     <h3>Instructions:</h3>
         <dl><?php echo str_replace("\n", "\n        ", $_POST['instructions'])?> </dl>
+<h1> Please check the pending calendar on google and take the necessary actions to confirm or deny this request.</h1>
