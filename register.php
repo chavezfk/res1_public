@@ -133,4 +133,5 @@ function handle_submission() {
 handle_submission();
 
 echo "<h4>Thank you for your submission!</h4>";
-echo "<h5>Redirecting you back to the home page!</h5>";
+echo "<h5>Redirecting you back to the home page!<br> if nothing happens, click <a href='Res1.html'>here</a></h5>";
+header('Refresh: 3;url=Res1.html');
