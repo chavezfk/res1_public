@@ -59,15 +59,11 @@
     <h3>Internet</h3>
     <p>
         Groups desiring internet usage beyond the Library’s single computer in Room 212 need to contact <a
-            href="http://www.nmt.edu/information-services-department">ISD</a> for
+            href="http://www.nmt.edu/information-services-department">ITC</a> for
         permission, passwords, cost estimations, etc. at 575‑835‑5700. (Library staff will not arrange internet
         access)
     </p>
 
-    <p>
-        See our <a href="../resources/rooms.html">available rooms</a> for more information.<br>
-        <a href="../../../forms/room_res_form.pdf">Print an application</a> (PDF)
-    </p>
 
     <p style="font-style:italic">
         New Mexico Tech Library will not provide a forum for groups advocating illegal activities.
