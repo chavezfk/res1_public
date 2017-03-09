@@ -33,7 +33,7 @@ function send_email_to_circulation() {
 
     $body = read_template("circulation_email_body.php");
 
-    mail('chavezfk@gmail.com',
+    mail('nmtlib@gmail.com',
         'Test Message',
         $body,
         $headers);
@@ -59,7 +59,7 @@ function create_google_calendar_entry() {
     $endTime->setTimeZone("America/Denver");
     $event->setStart($startTime);
     $event->setEnd($endTime);
-    $event->setSummary("Room Reservation for Meeting");
+    $event->setSummary("Skeen Library Meeting Space Reservation");
     $event->setDescription("
         Attendees: ". $_POST['numberofattendees'] ."\n
         NMT Affiliation: ". $_POST['tech'] ."\n
@@ -132,13 +132,5 @@ function handle_submission() {
 // handle the user's submission
 handle_submission();
 
-echo "Thank you for your submission!";
-echo "<table>";
-foreach ($_POST as $value){
-    echo "<tr><td>";
-    echo $value;
-    echo "</td><td>";
-    echo $value;
-    echo "</td></tr>";
-}
-echo "</table>";
+echo "<h4>Thank you for your submission!</h4>";
+echo "<h5>Redirecting you back to the home page!</h5>";
