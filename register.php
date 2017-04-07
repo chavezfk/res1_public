@@ -95,6 +95,41 @@ function create_google_calendar_entry() {
     $service->events->insert($ID, $event);
 }
 
+function create_google_sheet_entry(){
+    / Get the API client and construct the service object.
+    $client = getClient();
+    $service = new Google_Service_Sheets($client);
+
+    // Prints the names and majors of students in a sample spreadsheet:
+    // $spreadsheetId = '1iAVdGGYM1uAThPoNNd7mx1VM48QUkJcKLkPJ4Nkl154';
+    
+    //NOTE: REPLACE RANGE NAME WITH CORRECT SHEET NAME 
+    $range = '2017!A1';
+    $valueInputOption = 'USER_ENTERED';
+    
+    $values = array(
+    array(
+        $_POST['rezdate'],
+        $_POST['arr_time'],
+        $_POST['room'],
+        $_POST['name'],
+        $_POST['email'],
+        $_POST['repeats'],
+        
+    ),
+    // Additional rows ...
+    );
+    
+    $body = new Google_Service_Sheets_ValueRange(array(
+      'values' => $values
+    ));
+    $params = array(
+      'valueInputOption' => $valueInputOption  
+    );
+    $result = $service->spreadsheets_values->append($spreadsheetId, $range,
+        $body, $params);
+}
+
 /**
  * Validates the form submission, returning 'true' if
  * the submission is valid and the request can be saved.
@@ -127,6 +162,9 @@ function handle_submission() {
     if (validate_submission()) {
         // first make the google calendar entry
         create_google_calendar_entry();
+        
+        //then record on sheets
+        create_google_sheet_entry()
 
         // then email circulation
         send_email_to_circulation();
