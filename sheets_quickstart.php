@@ -3,12 +3,13 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 
 define('APPLICATION_NAME', 'Google Sheets API PHP Quickstart');
-define('CREDENTIALS_PATH', '~/.credentials/sheets.googleapis.com-php-quickstart.json');
+define('CREDENTIALS_PATH', '/.credentials/sheets-php-quickstart.json');
 define('CLIENT_SECRET_PATH', __DIR__ . '/client_secret.json');
 // If modifying these scopes, delete your previously saved credentials
-// at ~/.credentials/sheets.googleapis.com-php-quickstart.json
+// at ~/.credentials/sheets-php-quickstart.json
 define('SCOPES', implode(' ', array(
-  Google_Service_Sheets::SPREADSHEETS_READONLY)
+  Google_Service_Sheets::SPREADSHEETS,
+  Google_Service_Calendar::CALENDAR)
 ));
 
 if (php_sapi_name() != 'cli') {
@@ -47,7 +48,9 @@ function getClient() {
     file_put_contents($credentialsPath, json_encode($accessToken));
     printf("Credentials saved to %s\n", $credentialsPath);
   }
+  var_dump($accessToken);;
   $client->setAccessToken($accessToken);
+ 
 
   // Refresh the token if it's expired.
   if ($client->isAccessTokenExpired()) {
