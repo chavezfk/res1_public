@@ -4,7 +4,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 date_default_timezone_set("MST7MDT");
 
 define('APPLICATION_NAME', 'nmt-library-room-calendar-service');
-define('CREDENTIALS_PATH', '~/.credentials/calendar-php-quickstart.json');
+define('CREDENTIALS_PATH', '~/.credentials/sheets-php-quickstart.json');
 define('CLIENT_SECRET_PATH', __DIR__ . '/client_secret.json');
 // If modifying these scopes, delete your previously saved credentials
 // at ~/.credentials/calendar-php-quickstart.json
