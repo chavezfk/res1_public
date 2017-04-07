@@ -113,6 +113,7 @@ function create_google_sheet_entry(){
         $_POST['arr_time'],
         $_POST['room'],
         $_POST['name'],
+        $_POST['group-name'],
         $_POST['email'],
         $_POST['repeats'],
         
