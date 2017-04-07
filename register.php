@@ -82,7 +82,7 @@ function create_google_calendar_entry() {
         Projector: ". $_POST['needsprojector'] ."\n
         Phone: ". $_POST['needsphone'] ."\n\n
         
-        Recurs: ". $repeatlabels[$_POST['repeats']] . "\n
+        Recurs: ". $$_POST['repeats'] . "\n
         Days:   ". join(", ", array_map('ucfirst', array_keys($_POST['days']))) . "\n
         Until:  ". $_POST['until'] . "\n
         Special Instructions: \n". $_POST['instructions'] ."\n
@@ -101,10 +101,10 @@ function create_google_sheet_entry(){
     $service = new Google_Service_Sheets($client);
 
     // Prints the names and majors of students in a sample spreadsheet:
-    // $spreadsheetId = '1iAVdGGYM1uAThPoNNd7mx1VM48QUkJcKLkPJ4Nkl154';
+    $spreadsheetId = '1iAVdGGYM1uAThPoNNd7mx1VM48QUkJcKLkPJ4Nkl154';
     
     //NOTE: REPLACE RANGE NAME WITH CORRECT SHEET NAME 
-    $range = '2017!A1';
+    $range = 'A1';
     $valueInputOption = 'USER_ENTERED';
     
     $values = array(
@@ -164,7 +164,7 @@ function handle_submission() {
         create_google_calendar_entry();
         
         //then record on sheets
-        create_google_sheet_entry()
+        create_google_sheet_entry();
 
         // then email circulation
         send_email_to_circulation();
