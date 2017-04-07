@@ -96,7 +96,7 @@ function create_google_calendar_entry() {
 }
 
 function create_google_sheet_entry(){
-    / Get the API client and construct the service object.
+    // Get the API client and construct the service object.
     $client = getClient();
     $service = new Google_Service_Sheets($client);
 
